@@ -1,7 +1,7 @@
 # 酷猫HTML UI框架脚本 0.1
 # 特性：
 支持PyQt4/5及Chrome作为窗口输出支撑。
-可利用Python、Shell、PYP等等作为 主程序开发语言。
+可利用Python、Shell、PHP等等作为 主程序开发语言。
 使用HTML、JS、CSS等作为界面设计语言。
 本脚本是基于Python3开发的。
 # 使用方法：

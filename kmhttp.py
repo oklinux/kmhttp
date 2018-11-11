@@ -1,4 +1,5 @@
 #!.usr/bin/python3
+#encoding='utf-8'
 
 import os
 import sys
@@ -8,7 +9,7 @@ from multiprocessing import *
 #声明一个将要绑定的IP和端口，这里是用本地地址
 server_address = ('localhost', 31225)
 def dizhi():
-  return 'http://localhost:31225'
+  return 'http://localhost:31225/main'
 
 def mulu(chanshu):
   fankui=os.path.dirname(sys.argv[0])
@@ -26,7 +27,6 @@ def mulu(chanshu):
     if os.path.isdir('/tmp'):
       fankui='/tmp'
       
-  print(fankui,chanshu)
   return fankui
 
 #得到要发送的数据信息
@@ -142,7 +142,7 @@ def shouming():
 <!--WZBT--><h1><CONTER>酷猫HTML UI框架脚本 0.1
 </vonter></h1><P><!--WZNR--><h2>特性：</h2></p>
 <P>支持PyQt4/5及Chrome作为窗口输出支撑。</p>
-<P>可利用Python、Shell、PYP等等作为 主程序开发语言。</p>
+<P>可利用Python、Shell、PHP等等作为 主程序开发语言。</p>
 <P>使用HTML、JS、CSS等作为界面设计语言。</p>
 <P>本脚本是基于Python3开发的。</p>
 <P><h2>使用方法：</h2></p>
