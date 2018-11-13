@@ -7,9 +7,24 @@ import time
 import socket
 from multiprocessing import *
 #声明一个将要绑定的IP和端口，这里是用本地地址
-server_address = ('localhost', 31225)
+def duankou(cs):
+  dk=' 35460'
+  dkjilu='/run/shm/dkjilu.log'
+  if os.path.isfile(dkjilu):
+    dk1=open(dkjilu,'r')
+    dk=dk1.read()
+    dk1.close()
+    dk=int(dk)+cs
+  dk2=open(dkjilu,'w')
+  dk2.write(str(dk))
+  dk2.close()
+  return dk
+
+def fuwuuqi():
+  return('localhost', duankou(1))
+
 def dizhi():
-  return 'http://localhost:31225/main'
+  return 'http://localhost:'+str(duankou(0))+'/main'
 
 def mulu(chanshu):
   fankui=os.path.dirname(sys.argv[0])
@@ -77,9 +92,6 @@ def ShujuFH(lujing,fankui,data):
 
 #设置编码格式和文件类型
 def ShezhiBMLX(data,fankui,type,file,openFileType):
-  fankui+="Content-Type: "+type+";charset=utf-8"
-  fankui+="Content-Length: "+str(WenjianDX(file))+"\n"+"\n"
-  fankui = fankui.encode(encoding = 'utf-8')
   if os.path.isfile(file):
     WenjianNR=open(file,openFileType)
     fankui+=HuoquWJ(fankui,WenjianNR)
@@ -110,7 +122,7 @@ def jiaoben(data,URL):
   if mingling != '':
     os.system(mingling)
   
-  fankui = fankui.encode(encoding = 'utf-8')
+  #fankui = fankui.encode(encoding = 'utf-8')
   if os.path.isfile('main.heml'):
     WenjianNR=open('main.html','r')
     fankui=HuoquWJ(fankui,WenjianNR)
@@ -162,11 +174,11 @@ def shouming():
 
 class WebServer():
   def run(self):
-    print ('starting up on %s port %s' % server_address)	
     #实例化一个Socket
     sock=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
     #绑定IP和端口
-    sock.bind(server_address)
+    sock.bind(fuwuuqi())
+    print ('starting up on '+dizhi())
     #设置监听
     sock.listen(1)
     #这里首先给个死循环，其实这里是需要多线程的，再后续版本将会实现
