@@ -8,7 +8,7 @@ import socket
 from multiprocessing import *
 #声明一个将要绑定的IP和端口，这里是用本地地址
 def duankou(cs):
-  dk=' 35460'
+  dk=35460
   dkjilu='/run/shm/dkjilu.log'
   if os.path.isfile(dkjilu):
     dk1=open(dkjilu,'r')
@@ -94,9 +94,9 @@ def ShujuFH(lujing,fankui,data):
 def ShezhiBMLX(data,fankui,type,file,openFileType):
   if os.path.isfile(file):
     WenjianNR=open(file,openFileType)
-    fankui+=HuoquWJ(fankui,WenjianNR)
+    fankui=HuoquWJ(fankui,WenjianNR)
   else:
-    fankui+=jiaoben(data,file)
+    fankui=jiaoben(data,file)
 
   return fankui
 
@@ -122,7 +122,7 @@ def jiaoben(data,URL):
   if mingling != '':
     os.system(mingling)
   
-  #fankui = fankui.encode(encoding = 'utf-8')
+  fankui = fankui.encode(encoding = 'utf-8')
   if os.path.isfile('main.heml'):
     WenjianNR=open('main.html','r')
     fankui=HuoquWJ(fankui,WenjianNR)
