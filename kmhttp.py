@@ -5,6 +5,7 @@ import os
 import sys
 import time
 import socket
+from http.server import *
 from multiprocessing import *
 #声明一个将要绑定的IP和端口，这里是用本地地址
 def duankou(cs):
@@ -55,6 +56,7 @@ def HuoquHTML(data):
     URL = PanduanLX(data,'GET /',' HTTP/1.1')
   if QingqiuLX=="POST":
     URL = PanduanLX(data,'POST /',' HTTP/1.1')
+    fankui=' '
   URL=URL.decode('utf-8')
   fankui=ShujuFH(URL,fankui,data)
   return fankui
@@ -92,11 +94,16 @@ def ShujuFH(lujing,fankui,data):
 
 #设置编码格式和文件类型
 def ShezhiBMLX(data,fankui,type,file,openFileType):
+  fankui='HTTP/1.1 200 OK \n'
+  fankui+="Content-Type: "+type+";charset=utf-8"
+  fankui+="Content-Length: "+str(WenjianDX(file))+"\n"+"\n"
+  fankui = fankui.encode(encoding = 'utf-8')
+    
   if os.path.isfile(file):
     WenjianNR=open(file,openFileType)
-    fankui=HuoquWJ(fankui,WenjianNR)
+    fankui+=HuoquWJ(fankui,WenjianNR)
   else:
-    fankui=jiaoben(data,file)
+    fankui+=jiaoben(data,file)
 
   return fankui
 
@@ -145,9 +152,8 @@ def WenjianDX(Wenjianming):
   return size
  
 def shouming():
-  fankui='''
-   <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<html><head>
+  fankui='''<html><head>
+  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
   <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
   <title>酷猫UI说明</title>
 </MATA></head>
@@ -183,7 +189,7 @@ class WebServer():
     sock.listen(1)
     #这里首先给个死循环，其实这里是需要多线程的，再后续版本将会实现
     while True:
-      #接受客户端的请求并得到请求信息和请求的端口信息
+      #接受客户端的请求并得到请求信息和请求*的端口信息
       connection, client_address = sock.accept()
       print ('waiting for a connection') 
       try:
@@ -195,8 +201,7 @@ class WebServer():
            connection.sendall(XinxiFH)
       finally:
         connection.close()
-        
-#以下是调用PyQt4、5或Chrome作为界面窗口的载体
+
 
 def zhixingJB(JMJB):
   JBWenjian=open('browser.py','w')
@@ -230,12 +235,26 @@ browser.load(QUrl(kmhttp.dizhi()))
 browser.show()
 app.exec_()
 '''
-
+  JBQt51='''
+import sys
+import kmhttp
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtWebEngineWidgets import *
+app = QApplication(sys.argv)
+browser = QWebEngineView()
+browser.load(QUrl(kmhttp.dizhi()))`
+browser.show()
+app.exec_()
+'''
   os.chdir(mulu('dongqian'))
   time.sleep(2)
-  if zhixingJB(JBQt4) != 0:
-    if zhixingJB(JBQt5) != 0:
-      os.system('/usr/bin/chrome --app='+dizhi())
+  if zhixingJB(JBQt5) != 0:
+    if zhixingJB(JBQt51) != 0:
+      if zhixingJB(JBQt4) != 0:
+        os.system('/usr/bin/chrome --app='+dizhi())
+	
+	
 
 if __name__ == '__main__':
   server = WebServer()
