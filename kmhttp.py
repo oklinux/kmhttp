@@ -7,6 +7,27 @@ import time
 import socket
 from http.server import *
 from multiprocessing import *
+
+
+#检查pynput依赖，如过未安装，就使用pip安装。
+def jianchaYL(yilai1,yilai):
+  test='''from %s import *
+import os,sys
+''' % yilai1
+
+  if zhixingJB(test) != 0:
+    if not os.path.isfile('/usr/bin/apt'):
+        os.system('sudo apt update')
+    elif not os.path.isfile('/usr/bin/apt-get'):
+        os.system('sudo apt-get update')
+    
+    if os.path.isfile('/usr/bin/yum'):
+      os.system('sudo yum install python3-'+str(yilai))
+    if os.path.isfile('/usr/bin/apt-get'):
+      os.system('sudo apt-get install -y python3-'+str(yilai))
+    if os.path.isfile('/usr/bin/yum'):
+      os.system('sudo dmf install pyhon3-'+str(yilai))
+
 #声明一个将要绑定的IP和端口，这里是用本地地址
 def duankou(cs):
   dk=35460
@@ -42,15 +63,15 @@ def mulu(chanshu):
     fankui=bianliang.get('TEMP')
     if os.path.isdir('/tmp'):
       fankui='/tmp'
-      
+
   return fankui
 
 #得到要发送的数据信息
 def HuoquHTML(data):
-  fankui="" 
+  fankui=""
   QingqiuLX = data.decode('utf-8')
   QingqiuLX = QingqiuLX[0:QingqiuLX.find("/")].rstrip()
-  
+
   #判断是GET请求还是POST请求
   if QingqiuLX=="GET":
     URL = PanduanLX(data,'GET /',' HTTP/1.1')
@@ -89,7 +110,7 @@ def ShujuFH(lujing,fankui,data):
       fankui=ShezhiBMLX(data,fankui,"video/mpeg4",lujing,"rb")
     else:
       fankui=ShezhiBMLX(data,fankui,"application/data",lujing,"rb")
-      
+
   return fankui
 
 #设置编码格式和文件类型
@@ -98,7 +119,7 @@ def ShezhiBMLX(data,fankui,type,file,openFileType):
   fankui+="Content-Type: "+type+";charset=utf-8"
   fankui+="Content-Length: "+str(WenjianDX(file))+"\n"+"\n"
   fankui = fankui.encode(encoding = 'utf-8')
-    
+
   if os.path.isfile(file):
     WenjianNR=open(file,openFileType)
     fankui+=HuoquWJ(fankui,WenjianNR)
@@ -128,7 +149,7 @@ def jiaoben(data,URL):
       mingling=print('php main.php '+URL)
   if mingling != '':
     os.system(mingling)
-  
+
   fankui = fankui.encode(encoding = 'utf-8')
   if os.path.isfile('main.heml'):
     WenjianNR=open('main.html','r')
@@ -148,9 +169,9 @@ def WenjianDX(Wenjianming):
     fileobject=open(Wenjianming)
     fileobject.seek(0,2)
     size = fileobject.tell()
-    
+
   return size
- 
+
 def shouming():
   fankui='''<html><head>
   <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
@@ -160,19 +181,19 @@ def shouming():
 <!--WZBT--><h1><CONTER>酷猫HTML UI框架脚本 0.1
 </vonter></h1><P><!--WZNR--><h2>特性：</h2></p>
 <P>支持PyQt4/5及Chrome作为窗口输出支撑。</p>
-<P>可利用Python、Shell、PHP等等作为 主程序开发语言。</p>
+<P>可利用Python、Shell、PHP等等作为主程序开发语言。</p>
 <P>使用HTML、JS、CSS等作为界面设计语言。</p>
 <P>本脚本是基于Python3开发的。</p>
 <P><h2>使用方法：</h2></p>
 <P>1、Python3</p>
 <P>需要在程序目录下写一个包含start(url,data)方法的main.py。</p>
-<P>其中，url是HTML界面发送的链接，由< a href=main***** >产生。链接开天务必是main。data是HTML提交的所有数据，不大于128KB。</p>
+<P>其中，url是HTML界面发送的链接，由< a href=main***** >产生。链接开头天务必是main。data是HTML提交的所有数据，不大于128KB。</p>
 <P>该start方法必须返回新产生的HTML界面代码。</p>
 <P>2、其它语言</p>
-<P>在程序目录下必须有例如main.sh/main.php/main等主执行程序，url将以参数的形式传递给他们，所以连接数据被保存到link.dat文件中，供他们使用处理。</p>
+<P>在程序目录下必须有例如main.sh/main.php/main等主执行程序，url将以参数的形式传递给他们，所有连接数据被保存到link.dat文件中，供他们使用处理。</p>
 <P>他们必须产生main.html文件作为主界面。</p>
 <P><h2>关于：</h2></p>
-<P>作者：陈欧侃</p>
+<P>作者：陈欧侃<sjchenkan@qq.com></p>
 <P>授权协议：GPLv2</p>
 '''
 
@@ -191,13 +212,13 @@ class WebServer():
     while True:
       #接受客户端的请求并得到请求信息和请求*的端口信息
       connection, client_address = sock.accept()
-      print ('waiting for a connection') 
+      print ('waiting for a connection')
       try:
         #获取请求信息
         data = connection.recv(131024)
         if data:
            #发送请求信息
-           XinxiFH = HuoquHTML(data) 
+           XinxiFH = HuoquHTML(data)
            connection.sendall(XinxiFH)
       finally:
         connection.close()
@@ -209,7 +230,8 @@ def zhixingJB(JMJB):
   JBWenjian.close()
   zhixingJG=os.system('python3 browser.py')
   return zhixingJG
-  
+
+
 def jiemian():
   JBQt4='''
 import sys
@@ -243,24 +265,26 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtWebEngineWidgets import *
 app = QApplication(sys.argv)
 browser = QWebEngineView()
-browser.load(QUrl(kmhttp.dizhi()))`
+browser.load(QUrl(kmhttp.dizhi()))
 browser.show()
 app.exec_()
 '''
   os.chdir(mulu('dongqian'))
   time.sleep(2)
-  if zhixingJB(JBQt5) != 0:
-    if zhixingJB(JBQt51) != 0:
+  if zhixingJB(JBQt51) != 0:
+    if zhixingJB(JBQt5) != 0:
       if zhixingJB(JBQt4) != 0:
-        os.system('/usr/bin/chrome --app='+dizhi())
-	
-	
+        jianchaYL('PyQt5.QtWebEngineWidgets','pyqy5.qtwebengine')
+        if zhixingJB(JBQt51) != 0:
+          jianchaYL('PyQt5.QtWebKitWidgets','pyqy5.qtwebkit')
+          if zhixingJB(JBQt5) != 0:
+            os.system('/usr/bin/chrome --app='+dizhi())
+
+
 
 if __name__ == '__main__':
   server = WebServer()
   p = Process(target = server.run)
   p.start()
-  
+
   jiemian()
-  
-  
