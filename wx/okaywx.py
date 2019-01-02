@@ -10,7 +10,7 @@ echo "#!/bin/bash
 python3 /usr/share/okaywx/okaywx.py RUN >/dev/null &
 ">/usr/bin/okaywx
 chmod -R 777 /usr/share/okaywx /usr/bin/okaywx
-tee<<desktop>/usr/share/application/okaywx.desktop
+tee<<desktop>/usr/share/applications/okaywx.desktop
 [Desktop Entry]
 Name=Okay Wenxin
 Name[zh_CN]=Okay微信
@@ -31,7 +31,7 @@ def anzhuang():
 
 
 def ming():
-  return '微信Linux版'
+  return 'Okay微信Linux版'
 def dizhi():
   return 'http://wx.qq.com/'
 
