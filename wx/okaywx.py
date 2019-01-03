@@ -18,7 +18,11 @@ Name[zh_CN]=Okay微信
 Exec=okaywx
 Icon=
 Type=Application
-desktopCategories=GNOME;Network;WebBrowser;
+StartupNotify=true
+X-MultipleArgs=false
+Actions=new-window;new-private-window;
+Categories=GNOME;Network;WebBrowser;
+
 desktop
 
 rm -rf $0
