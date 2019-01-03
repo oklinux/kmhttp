@@ -7,6 +7,7 @@ anzhuang_sh='''#!nin/bash
 mkdir -p /usr/share/okaywx
 cp %s /usr/share/okaywx
 echo "#!/bin/bash
+cd /usr/share/okaywx
 python3 /usr/share/okaywx/okaywx.py RUN >/dev/null &
 ">/usr/bin/okaywx
 chmod -R 777 /usr/share/okaywx /usr/bin/okaywx
@@ -16,14 +17,16 @@ Name=Okay Wenxin
 Name[zh_CN]=Okay微信
 Exec=okaywx
 Icon=
-Type=Application;Network;Internet
+Type=Application
+desktopCategories=GNOME;Network;WebBrowser;
 desktop
+
 rm -rf $0
 ''' % sys.argv[0]
 
 def anzhuang():
-  if sys.argv[1]:
-    if sys.argv[1] == 'setup':
+  for cs in sys.argv:
+    if cs == 'setup':
       az=open('setup.sh','w')
       az.write(anzhuang_sh)
       az.close()
@@ -31,7 +34,7 @@ def anzhuang():
 
 
 def ming():
-  return 'Okay微信Linux版'
+  return 'Okay\微信Linux版'
 def dizhi():
   return 'http://wx.qq.com/'
 
