@@ -114,11 +114,12 @@ app.exec_()
   if zhixingJB(JBQt51) != 0:
     if zhixingJB(JBQt5) != 0:
       if zhixingJB(JBQt4) != 0:
-        jianchaYL('PyQt5.QtWebEngineWidgets','pyqy5.qtwebengine')
-        if zhixingJB(JBQt51) != 0:
-          jianchaYL('PyQt5.QtWebKitWidgets','pyqy5.qtwebkit')
-          if zhixingJB(JBQt5) != 0:
-            os.system('/usr/bin/chrome --app='+dizhi())
+        jianchaYL('PyQt5.QtWebEngineWidgets','pyqt5.qtwebengine')
+    elif zhixingJB(JBQt51) != 0:
+      jianchaYL('PyQt5.QtWebKitWidgets','pyqt5.qtwebkit')
+    elif zhixingJB(JBQt5) != 0:
+      if os.isfile('/usr/bin/chrome'):
+        os.system('/usr/bin/chrome --app='+dizhi())
 
 
 if __name__ == '__main__':
